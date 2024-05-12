@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "266329685696",
+    "project_id": "mapnocauth",
+    "storage_bucket": "mapnocauth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266329685696:android:496c9dd272f9548873f725",
+        "android_client_info": {
+          "package_name": "org.classapp.mapnoc_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6sdHIj-SJ0IK0T_Wdg1FbN8Y_HYd69_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
