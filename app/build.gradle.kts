@@ -71,6 +71,8 @@ secrets {
 dependencies {
     val navVersion = "2.7.6"
     implementation("androidx.navigation:navigation-compose:$navVersion")
+    implementation("com.google.firebase:firebase-firestore-ktx:23.0.3")
+    implementation("androidx.work:work-runtime-ktx:2.7.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.maps.android:maps-compose:4.3.0")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))

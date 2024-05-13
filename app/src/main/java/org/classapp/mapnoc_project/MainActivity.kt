@@ -1,6 +1,7 @@
 package org.classapp.mapnoc_project
 
 import android.os.Bundle
+import android.content.Context
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,10 +26,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.work.*
+import java.util.concurrent.TimeUnit
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,11 +50,28 @@ class MainActivity : ComponentActivity() {
             }
         }
         Toast.makeText(this, "Welcome to MapNoc!!", Toast.LENGTH_LONG).show()
+        schedulePeriodicWork()
+    }
+    private fun schedulePeriodicWork() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val periodicWorkRequest = PeriodicWorkRequestBuilder<NotificationsHelper>(
+            repeatInterval = 1,
+            repeatIntervalTimeUnit = TimeUnit.DAYS
+        )
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(this).enqueue(periodicWorkRequest)
     }
 }
 
+
 @Composable
 fun MainScreenWithBottomNavBar() {
+    val context = LocalContext.current
     val navController = rememberNavController()
     var navSelectedItem by remember {
         mutableStateOf(1)
@@ -83,7 +105,7 @@ fun MainScreenWithBottomNavBar() {
             MapScreen()
         }
         composable(route = DestinationScreens.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(context)
         }
     }
     }
@@ -95,6 +117,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         Text(text = "Click")
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
